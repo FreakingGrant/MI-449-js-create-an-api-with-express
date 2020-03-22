@@ -19,7 +19,9 @@ app.get('/todo', function (request, response) {
 
 app.get('/todo/:id', function (request, response) {
   if (!todoList[request.params.id]) {
-    response.status(404).end('Sorry, no such task: ' + request.params.id)
+    response.status(404).json({
+      "error": "Sorry, no such task: " + request.params.id
+    })
     return
   }
 
@@ -37,7 +39,9 @@ app.post('/todo', function (request, response) {
 
 app.delete('/todo/:id', function (request, response) {
   if (!todoList[request.params.id]) {
-    response.status(404).end('Sorry, no such task: ' + request.params.id)
+    response.status(404).json({
+      "error": "Sorry, no such task: " + request.params.id
+    })
     return
   }
 
@@ -47,7 +51,9 @@ app.delete('/todo/:id', function (request, response) {
 
 app.put('/todo/:id', function (request, response) {
   if (!todoList[request.params.id]) {
-    response.status(404).end('Sorry, no such task: ' + request.params.id)
+    response.status(404).json({
+      "error": "Sorry, no such task: " + request.params.id
+    })
     return
   }
   
@@ -63,7 +69,9 @@ app.put('/todo/:id', function (request, response) {
 
 // Handle any bad requests
 app.use(function (request, response, next) {
-  response.status(404).end(request.url + ' not found')
+  response.status(404).json({
+    "error": request.url + ' not found'
+  })
 })
 
 app.listen(port)
